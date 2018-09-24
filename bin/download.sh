@@ -2,7 +2,7 @@
 
 source $(dirname $0)/sources/common.sh
 
-depends sources/series sources/download sources/mutex sources/verbose local/aliases local/paths
+depends sources/series sources/listen sources/download sources/mutex sources/verbose local/aliases local/paths
 
 verbose=''
 serie=''
@@ -54,6 +54,10 @@ function cmd-download-serie() {
 
     superecho Checking serie ${serie}
     download-serie "${serie}"
+}
+
+function cmd-listen() {
+    listen
 }
 
 function init-exclusive-named-process() {

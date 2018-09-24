@@ -1,2 +1,3 @@
 /var/lock/
 /var/series/
+/bin/listener/cgi-bin/requests/

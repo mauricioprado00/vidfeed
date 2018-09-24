@@ -1,0 +1,100 @@
+<html>
+    <style>
+        body {
+            background-color: #eff5ff;
+        }
+
+        .input {
+            width: 70%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            top: 50%;
+            margin-top: -10%;
+        }
+
+        .input input {
+            width: 100%;
+            border: 1px solid black;
+            height: 2em;
+            font-size: 2em;
+        }
+
+        button {
+
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            height: 100%;
+            transform: translateX(100%);
+            margin-right: -5px;
+
+            border: none;
+            display: inline-block;
+            padding: 8px 16px;
+            vertical-align: middle;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            background-color: inherit;
+            text-align: center;
+            cursor: pointer;
+            white-space: nowrap;
+
+            color: #FFFFFF;
+            background-color: #4CAF50;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            outline-width: 0;
+            user-select: none;
+
+        }
+    </style>
+    <script type="text/javascript">
+        var to_save=null;
+
+        function save() {
+            to_save=true;
+            setTimeout(log, 200);
+        }
+
+        function log() {
+            var request = document.getElementById("url").value;
+            if (to_save !== null) {
+                logRequest(request);
+            }
+
+            to_save = null;
+        }
+
+        function logRequest(request) {
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                   if (xmlhttp.status == 200) {
+                       //document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                       alert("done");
+                   }
+                   else if (xmlhttp.status == 400) {
+                      alert('There was an error 400');
+                   }
+                   else {
+                       alert('something else other than 200 was returned');
+                   }
+                }
+            };
+
+            xmlhttp.open("GET", "cgi-bin/add?" + request, true);
+            xmlhttp.send();
+        }
+    </script>
+    <body>
+        <div class="container">
+            <form onsubmit="save(); return false;">
+                <div class="input"><input id="url" type="text" />
+                    <button onclick="save()">Save</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
