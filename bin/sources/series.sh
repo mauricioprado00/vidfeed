@@ -5,6 +5,7 @@ __series_torrent_directory=torrent
 __series_download_directory=download
 __series_progress_directory=progress
 __series_finished_directory=finished
+__series_magnet_directory=magnet
 
 function series-directory()
 {
@@ -15,7 +16,13 @@ function series-directory()
 function series-torrent-directory()
 {
     local serie=$1
-    echo $(series-directory)/${serie}/${__series_torrent_directory} 2>/dev/null
+    echo $(series-directory)/${serie}/${__series_torrent_directory}
+}
+
+function series-magnet-directory()
+{
+    local serie=$1
+    echo $(series-directory)/${serie}/${__series_magnet_directory}
 }
 
 function series-download-directory()
@@ -48,5 +55,11 @@ function series-list() {
 function series-torrents() {
     local serie=$1
 
-    ls $(series-torrent-directory ${serie}) | sed 's#^#'$(series-torrent-directory ${serie})'/#g'
+    ls $(series-torrent-directory ${serie}) 2>/dev/null | sed 's#^#'$(series-torrent-directory ${serie})'/#g'
 }
+
+function series-magnets() {
+    local serie=$1
+
+    ls $(series-magnet-directory ${serie}) 2>/dev/null | sed 's#^#'$(series-magnet-directory ${serie})'/#g'
+}   
